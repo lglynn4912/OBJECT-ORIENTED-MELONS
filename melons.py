@@ -28,6 +28,7 @@ class AbstractMelonOrder:
         return total
        
 
+
 class DomesticMelonOrder(AbstractMelonOrder):
     """A melon order within the USA."""
 
@@ -64,3 +65,13 @@ class InternationalMelonOrder(AbstractMelonOrder):
 
         return self.country_code
 
+class GovernmentMelonOrder(AbstractMelonOrder):
+
+    tax = 0
+    passed_inspection = False
+    
+    def __init__(self, species, qty, holiday):
+        super().__init__(species, qty, holiday)
+
+    def mark_inspection(self):
+        self.passed_inspection = True
