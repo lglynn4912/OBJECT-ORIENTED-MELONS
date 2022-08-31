@@ -1,5 +1,8 @@
 """Classes for melon orders."""
 
+from random import randint
+from datetime import datetime
+
 class AbstractMelonOrder:
 
     def __init__(self, species, qty, holiday):
@@ -15,11 +18,25 @@ class AbstractMelonOrder:
 
         self.shipped = True
 
+    
+          
+    def get_base_price(self):
+        
+        random_base_price = 5
+
+        current_date_time = datetime.now()
+
+        if current_date_time.hour() >= 17 and current_date_time.hour() <= 3 and current_date_time.weekday() <= 5:
+            random_base_price += 4
+            
+       
+        return random_base_price
+
     def get_total(self):
         """Calculate price, including tax."""
-        
-        base_price = 5
-        
+
+        base_price = self.get_base_price()
+
         if self.holiday == True:
             base_price = base_price * 1.5
 
@@ -27,8 +44,6 @@ class AbstractMelonOrder:
 
         return total
        
-
-
 class DomesticMelonOrder(AbstractMelonOrder):
     """A melon order within the USA."""
 
